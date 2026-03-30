@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SentriX | Evidence Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #25d366;
+      --severe: #ef4444;
+      --mild: #f59e0b;
+      --safe: #25d366;
+      --bg: #0f172a;
+      --card: rgba(30, 41, 59, 0.7);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: rgba(255, 255, 255, 0.1);
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(37, 211, 102, 0.05) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(74, 144, 226, 0.05) 0px, transparent 50%);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 60px 20px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 60px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 30px;
+    }
+
+    .logo-section h1 {
+      margin: 0;
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .logo-section p {
+      margin: 8px 0 0;
+      color: var(--text-muted);
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .stats-summary {
+      display: flex;
+      gap: 16px;
+    }
+
+    .stat-pill {
+      background: var(--card);
+      backdrop-filter: blur(10px);
+      padding: 12px 24px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+      font-size: 14px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+
+    .stat-pill.severe-pill { border-color: rgba(239, 68, 68, 0.3); color: var(--severe); }
+    .stat-pill.mild-pill { border-color: rgba(245, 158, 11, 0.3); color: var(--mild); }
+
+    .feed {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .detection-card {
+      background: var(--card);
+      backdrop-filter: blur(12px);
+      border-radius: 24px;
+      padding: 32px;
+      border: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 40px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .detection-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    .content-area h3 {
+      margin: 0 0 16px;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .badge {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+
+    .badge.severe { background: rgba(239, 68, 68, 0.2); color: var(--severe); border: 1px solid rgba(239, 68, 68, 0.3); }
+    .badge.mild { background: rgba(245, 158, 11, 0.2); color: var(--mild); border: 1px solid rgba(245, 158, 11, 0.3); }
+    .badge.safe { background: rgba(37, 211, 102, 0.2); color: var(--safe); border: 1px solid rgba(37, 211, 102, 0.3); }
+
+    .message-bubble {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 24px;
+      border-radius: 16px;
+      margin: 20px 0;
+      font-style: italic;
+      color: #e2e8f0;
+      border: 1px solid rgba(255,255,255,0.05);
+      line-height: 1.6;
+    }
+
+    .reason-box {
+      font-size: 14px;
+      color: var(--text-muted);
+      background: rgba(0,0,0,0.2);
+      padding: 12px 16px;
+      border-radius: 8px;
+    }
+
+    .evidence-area {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .evidence-area h4 {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .evidence-image-container {
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #000;
+    }
+
+    .evidence-area img {
+      width: 100%;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .evidence-area img:hover {
+      transform: scale(1.05);
+      cursor: zoom-in;
+    }
+
+    .timestamp {
+      font-size: 13px; 
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .no-data {
+      text-align: center;
+      padding: 120px 0;
+      color: var(--text-muted);
+      font-size: 18px;
+    }
+
+    @media (max-width: 900px) {
+      .detection-card { grid-template-columns: 1fr; gap: 30px; }
+      .evidence-area { max-width: 400px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo-section">
+        <h1>SentriX Engine</h1>
+        <p>Live Evidence & Investigation Dashboard</p>
+      </div>
+      <div class="stats-summary" id="statsHeader">
+        <!-- Stats populated by JS -->
+      </div>
+    </header>
+
+    <main id="feedRoot" class="feed">
+      <div class="no-data">Initializing secure connection to SentriX...</div>
+    </main>
+  </div>
+
+  <script>
+    async function loadDashboard() {
+      try {
+        const response = await fetch('/api/detections');
+        const data = await response.json();
+        
+        const feedRoot = document.getElementById('feedRoot');
+        const statsHeader = document.getElementById('statsHeader');
+        
+        if (!data || data.length === 0) {
+          feedRoot.innerHTML = '<div class="no-data">No active threats detected. Monitoring WhatsApp Web traffic...</div>';
+          return;
+        }
+
+        let severeCount = 0;
+        let mildCount = 0;
+
+        feedRoot.innerHTML = data.map(item => {
+          if (item.severity === 'SEVERE') severeCount++;
+          if (item.severity === 'MILD') mildCount++;
+
+          const dateStr = new Date(item.timestamp).toLocaleString();
+          const hasImage = item.screenshot && item.screenshot.startsWith('data:image');
+
+          return `
+            <div class="detection-card">
+              <div class="content-area">
+                <h3>
+                  Investigation #${item.id}
+                  <span class="badge ${item.severity.toLowerCase()}">${item.severity}</span>
+                </h3>
+                <div class="timestamp">Detected on ${dateStr}</div>
+                <div class="message-bubble">"${item.text}"</div>
+                <div class="reason-box"><strong>AI Analysis:</strong> ${item.reason || 'Classification complete.'}</div>
+              </div>
+              <div class="evidence-area">
+                <h4>Visual Evidence</h4>
+                <div class="evidence-image-container">
+                  ${hasImage ? `<img src="${item.screenshot}" alt="Screenshot">` : '<div style="padding: 40px; text-align: center; color: #4b5563; font-size: 13px;">No capture available.</div>'}
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        statsHeader.innerHTML = `
+          <div class="stat-pill severe-pill">🔴 ${severeCount} SEVERE</div>
+          <div class="stat-pill mild-pill">🟡 ${mildCount} MILD</div>
+        `;
+
+      } catch (err) {
+        document.getElementById('feedRoot').innerHTML = '<div class="no-data">Failed to connect to SentriX Engine. Is the server running?</div>';
+      }
+    }
+
+    loadDashboard();
+    // Auto-refresh every 15 seconds for a "live" feel
+    setInterval(loadDashboard, 15000);
+  </script>
+</body>
+</html>
