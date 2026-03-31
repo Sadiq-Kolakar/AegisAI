@@ -3,62 +3,57 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WhatsApp Observer Popup</title>
-  <link rel="stylesheet" href="popup.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <title>SentriX Control</title>
+  <style>
+    body {
+      font-family: 'Outfit', 'Inter', system-ui, sans-serif;
+      background: #020617;
+      color: #f8fafc;
+      width: 280px;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    .logo-box {
+      background: linear-gradient(135deg, #10b981, #059669);
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+    }
+    h1 { font-size: 18px; margin: 0; letter-spacing: -0.5px; }
+    p { font-size: 11px; color: #94a3b8; margin: 4px 0 20px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
+    .status-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: left;
+    }
+    .status-row { display: flex; justify-content: space-between; align-items: center; }
+    .status-text { font-size: 13px; font-weight: 600; }
+    .footer { margin-top: 20px; font-size: 10px; color: #475569; }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div class="logo-wrapper">
-        <svg class="logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2C6.47 2 2 6.47 2 12C2 13.59 2.36 15.09 3.02 16.42L2 22L7.66 21.03C8.96 21.66 10.44 22 12 22C17.53 22 22 17.53 22 12C22 6.47 17.53 2 12 2ZM16.83 16.58C16.61 17.18 15.74 17.7 15.01 17.85C14.5 17.96 13.84 18.04 11.59 17.11C8.71 15.93 6.84 12.99 6.7 12.8C6.56 12.61 5.52 11.23 5.52 9.8C5.52 8.37 6.25 7.68 6.54 7.39C6.76 7.17 7.13 7.06 7.49 7.06C7.61 7.06 7.71 7.07 7.8 7.07C8.07 7.08 8.21 7.1 8.39 7.53C8.61 8.07 9.15 9.39 9.22 9.53C9.28 9.68 9.35 9.87 9.25 10.07C9.15 10.27 9.07 10.36 8.92 10.53C8.78 10.7 8.62 10.91 8.49 11.05L8.16 11.45C8.02 11.59 7.86 11.77 8.04 12.08C8.22 12.38 8.84 13.4 9.76 14.22C10.95 15.28 11.93 15.62 12.26 15.76C12.51 15.86 12.79 15.83 12.98 15.63C13.21 15.38 13.5 15.03 13.79 14.62C14 14.33 14.26 14.28 14.52 14.38C14.79 14.48 16.19 15.17 16.48 15.31C16.76 15.46 16.96 15.53 17.03 15.65C17.1 15.77 17.1 16.34 16.83 16.58Z" fill="currentColor"/>
-        </svg>
-        <h1>SentriX</h1>
-      </div>
-      <p class="subtitle">Observer Dashboard</p>
-    </header>
-
-    <main>
-      <div class="card">
-        <div class="card-item">
-          <span id="extensionLabel"><span id="pulseDot" class="active-pulse"></span>Extension Status</span>
-          <label class="switch" for="extensionToggle" aria-labelledby="extensionLabel">
-            <input type="checkbox" id="extensionToggle">
-            <span class="slider round"></span>
-          </label>
-        </div>
-        <div class="divider"></div>
-        <div class="card-item vertical">
-          <label for="parentEmail" class="input-label">Alert Recipient Email</label>
-          <input type="email" id="parentEmail" placeholder="parent@example.com" class="text-input">
-        </div>
-      </div>
-
-      <div class="info-card">
-        <h3>Threat Statistics</h3>
-        <div class="stats-grid">
-          <div class="stat-item mild-stat">
-            <span class="stat-value" id="mildCount">0</span>
-            <span class="stat-label">Mild Issues</span>
-          </div>
-          <div class="stat-item severe-stat">
-            <span class="stat-value" id="severeCount">0</span>
-            <span class="stat-label">Severe Risks</span>
-          </div>
-        </div>
-      </div>
-
-      <button id="sendPing" class="action-button">Ping Extension</button>
-      <div id="statusMessage" class="status-msg"></div>
-    </main>
-
-    <footer>
-      <span>v1.0.0 &bull; SentriX Engine</span>
-    </footer>
+  <div class="logo-box">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 5v6c0 5.5 3.8 10.7 8 12 4.2-1.3 8-6.5 8-12V5l-8-3z"/></svg>
   </div>
+  <h1>SentriX Agent</h1>
+  <p>Secure WhatsApp Intelligence</p>
+  
+  <div class="status-card">
+    <div class="status-row">
+        <div class="status-text">Intelligence Engine</div>
+        <div style="color: #10b981; font-weight: 800; font-size: 11px;">ACTIVE</div>
+    </div>
+  </div>
+
+  <div class="footer">v1.1.0 • SentriX Core Analysis</div>
   <script src="popup.js"></script>
 </body>
 </html>

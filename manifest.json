@@ -1,11 +1,12 @@
 {
   "manifest_version": 3,
-  "name": "WhatsApp Observer",
-  "version": "1.0.0",
-  "description": "A production-ready Chrome Extension for WhatsApp Web to monitor and interact with chats.",
+  "name": "SentriX | Cyberbullying Protection Agent",
+  "version": "1.1.0",
+  "description": "Production-ready real-time cyberbullying detection for WhatsApp Web using a local AI engine.",
   "permissions": [
     "storage",
     "tabs",
+    "scripting",
     "notifications"
   ],
   "host_permissions": [
@@ -30,7 +31,7 @@
         "https://web.whatsapp.com/*"
       ],
       "js": [
-        "content/html2canvas.min.js",
+        "content/badge.js",
         "content/observer.js"
       ],
       "run_at": "document_idle"
