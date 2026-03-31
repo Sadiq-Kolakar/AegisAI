@@ -15,7 +15,7 @@ const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 5000;
 const OLLAMA_ENDPOINT = process.env.OLLAMA_HOST || 'http://localhost:11434';
-const OLLAMA_MODEL = process.env.OLLAMA_MODEL || 'llama3';
+const OLLAMA_MODEL = process.env.OLLAMA_MODEL || 'mistral';
 
 // ─────────────────────────────────────────────
 // MIDDLEWARE
@@ -31,18 +31,24 @@ app.use(express.json());
  * @param {string} message - The message to classify.
  * @returns {string} The formatted prompt string.
  */
-const buildPrompt = (message) => `You are a cyberbullying detection system.
+const buildPrompt = (message) =>
+`You are a strict cyberbullying detection system.
 
-Classify the following message into one of these categories:
-- SAFE: normal conversation
-- MILD: slightly offensive or rude
-- SEVERE: abusive, threatening, or harmful
+Classify the message into ONE category:
+SAFE, MILD, or SEVERE.
 
-Return ONLY valid JSON in this exact format:
-{
-  "severity": "SAFE | MILD | SEVERE",
-  "reason": "short explanation"
-}
+Rules:
+- SAFE = normal conversation
+- MILD = slightly rude or offensive
+- SEVERE = abusive, insulting, or harmful
+
+IMPORTANT:
+- Respond ONLY in JSON
+- No explanation
+- No extra text
+
+Format:
+{"severity":"SAFE|MILD|SEVERE","reason":"short"}
 
 Message: "${message}"`;
 

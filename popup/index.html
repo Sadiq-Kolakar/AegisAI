@@ -3,57 +3,163 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SentriX Control</title>
+  <title>SentriX</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      font-family: 'Outfit', 'Inter', system-ui, sans-serif;
+      font-family: 'Inter', system-ui, sans-serif;
       background: #020617;
-      color: #f8fafc;
-      width: 280px;
-      margin: 0;
+      color: #f1f5f9;
+      width: 300px;
+      min-height: 320px;
       padding: 20px;
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
     }
-    .logo-box {
-      background: linear-gradient(135deg, #10b981, #059669);
-      width: 40px;
-      height: 40px;
-      border-radius: 8px;
-      margin: 0 auto 12px;
+
+    /* Header */
+    .header {
       display: flex;
       align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+      gap: 12px;
     }
-    h1 { font-size: 18px; margin: 0; letter-spacing: -0.5px; }
-    p { font-size: 11px; color: #94a3b8; margin: 4px 0 20px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
-    .status-card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 16px;
-      text-align: left;
+    .logo {
+      width: 38px; height: 38px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 16px rgba(16,185,129,0.35);
+      flex-shrink: 0;
     }
-    .status-row { display: flex; justify-content: space-between; align-items: center; }
-    .status-text { font-size: 13px; font-weight: 600; }
-    .footer { margin-top: 20px; font-size: 10px; color: #475569; }
+    .brand-name { font-size: 18px; font-weight: 800; letter-spacing: -0.5px; }
+    .brand-sub  { font-size: 10px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+    /* Cards */
+    .card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 14px 16px;
+    }
+
+    /* Toggle row */
+    .row { display: flex; justify-content: space-between; align-items: center; }
+    .row-label { font-size: 13px; font-weight: 600; color: #cbd5e1; }
+
+    /* Toggle switch */
+    .switch { position: relative; width: 42px; height: 24px; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider {
+      position: absolute; inset: 0;
+      background: #1e293b; border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: background 0.3s;
+      cursor: pointer;
+    }
+    .slider::before {
+      content: '';
+      position: absolute;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: #64748b;
+      top: 2px; left: 2px;
+      transition: transform 0.3s, background 0.3s;
+    }
+    input:checked + .slider { background: #059669; }
+    input:checked + .slider::before { transform: translateX(18px); background: #fff; }
+
+    /* Stats */
+    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .stat-box {
+      background: rgba(255,255,255,0.03);
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+    .stat-val { font-size: 22px; font-weight: 800; }
+    .stat-lbl { font-size: 10px; color: #64748b; font-weight: 600; text-transform: uppercase; margin-top: 2px; }
+    .stat-box.mild .stat-val  { color: #fbbf24; }
+    .stat-box.severe .stat-val { color: #f43f5e; }
+
+    /* Server status */
+    .server-row { display: flex; align-items: center; gap: 8px; }
+    .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #475569;
+      flex-shrink: 0;
+      transition: background 0.4s;
+    }
+    .dot.online  { background: #10b981; box-shadow: 0 0 6px #10b981; animation: pulse 2s infinite; }
+    .dot.offline { background: #f43f5e; }
+    .server-label { font-size: 12px; font-weight: 600; color: #94a3b8; }
+    .server-status { font-size: 12px; font-weight: 700; margin-left: auto; }
+    .server-status.online  { color: #10b981; }
+    .server-status.offline { color: #f43f5e; }
+    .server-status.checking { color: #fbbf24; }
+
+    /* Footer */
+    .footer { font-size: 10px; color: #334155; text-align: center; margin-top: auto; }
+
+    @keyframes pulse {
+      0%,100% { opacity:1; transform:scale(1); }
+      50%      { opacity:0.5; transform:scale(1.4); }
+    }
   </style>
 </head>
 <body>
-  <div class="logo-box">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 5v6c0 5.5 3.8 10.7 8 12 4.2-1.3 8-6.5 8-12V5l-8-3z"/></svg>
-  </div>
-  <h1>SentriX Agent</h1>
-  <p>Secure WhatsApp Intelligence</p>
-  
-  <div class="status-card">
-    <div class="status-row">
-        <div class="status-text">Intelligence Engine</div>
-        <div style="color: #10b981; font-weight: 800; font-size: 11px;">ACTIVE</div>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="logo">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2L4 5v6c0 5.5 3.8 10.7 8 12 4.2-1.3 8-6.5 8-12V5l-8-3z"/>
+      </svg>
+    </div>
+    <div>
+      <div class="brand-name">SentriX</div>
+      <div class="brand-sub">Cyberbullying Agent</div>
     </div>
   </div>
 
-  <div class="footer">v1.1.0 • SentriX Core Analysis</div>
+  <!-- Toggle -->
+  <div class="card">
+    <div class="row">
+      <span class="row-label">Active Monitoring</span>
+      <label class="switch" aria-label="Toggle monitoring">
+        <input type="checkbox" id="toggleMonitoring" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="card">
+    <div class="stats-grid">
+      <div class="stat-box mild">
+        <div class="stat-val" id="mildCount">–</div>
+        <div class="stat-lbl">Mild</div>
+      </div>
+      <div class="stat-box severe">
+        <div class="stat-val" id="severeCount">–</div>
+        <div class="stat-lbl">Severe</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Server Status -->
+  <div class="card">
+    <div class="server-row">
+      <div class="dot" id="serverDot"></div>
+      <span class="server-label">Analysis Engine</span>
+      <span class="server-status checking" id="serverStatus">Connecting…</span>
+    </div>
+  </div>
+
+  <div class="footer">v2.0.0 &bull; SentriX Intelligence Engine</div>
+
   <script src="popup.js"></script>
 </body>
 </html>
