@@ -1,5 +1,5 @@
 /**
- * SentriX SQLite Database Service.
+ * AegisAI SQLite Database Service.
  * Persistence layer for message detections and evidence screenshots.
  */
 

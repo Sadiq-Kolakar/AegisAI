@@ -1,5 +1,5 @@
 /**
- * SentriX Observer v2.1 — WhatsApp Cyberbullying Detection
+ * AegisAI Observer v2.1 — WhatsApp Cyberbullying Detection
  * Self-contained single content script.
  *
  * Responsibilities:
@@ -100,7 +100,7 @@ const log = (msg, level = 'info') => {
   let method = 'log';
   if (level === 'error') method = 'error';
   else if (level === 'warn') method = 'warn';
-  console[method](`%c[SentriX]`, styles[level] || styles.info, msg);
+  console[method](`%c[AegisAI]`, styles[level] || styles.info, msg);
 };
 
 // ─── SEVERE: Blur + Reveal Button ──────────────
@@ -192,13 +192,13 @@ function showBadge(node, severity) {
     node.style.transition = 'outline 0.3s ease';
   }
 
-  console.log(`[SentriX] 🎨 Badge shown: ${severity}`);
+  console.log(`[AegisAI] 🎨 Badge shown: ${severity}`);
 }
 
 // ─── Listen for results from background ─────────
 chrome.runtime.onMessage.addListener((msg) => {
   if (msg.type === 'SHOW_RESULT') {
-    console.log(`[SentriX] Result → ${msg.severity}`);
+    console.log(`[AegisAI] Result → ${msg.severity}`);
 
     // Find the node that sent this text
     const node = textNodeMap.get(msg.text);

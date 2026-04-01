@@ -1,5 +1,5 @@
 /**
- * SentriX Badge Injector v2.0
+ * AegisAI Badge Injector v2.0
  * Injects a severity badge into a message node using Shadow DOM.
  * Shadow DOM prevents any CSS collision with WhatsApp's styles.
  */

@@ -14,7 +14,7 @@ def run_command(command, description):
         return False
 
 def push_to_github():
-    repo_url = "https://github.com/mahi-2-ron/SentriX"
+    repo_url = "https://github.com/Sadiq-Kolakar/AegisAI"
 
     # Step 1: Initialize Git if not already
     if not os.path.exists(".git"):
@@ -32,7 +32,7 @@ def push_to_github():
             print("No changes to commit.")
         else:
             # Step 4: Commit changes
-            commit_message = input("Enter commit message (default: 'Update SentriX v1.1'): ") or "Update SentriX v1.1"
+            commit_message = input("Enter commit message (default: 'Update AegisAI v1.1'): ") or "Update AegisAI v1.1"
             run_command(f'git commit -m "{commit_message}"', "Committing changes")
     except subprocess.CalledProcessError:
         pass

@@ -1,5 +1,5 @@
 /**
- * SentriX Backend Server v2.0
+ * AegisAI Backend Server v2.0
  * Cyberbullying Detection Engine via Llama 3 (Ollama)
  */
 
@@ -50,11 +50,11 @@ Message: "${text}"`;
     const data = await response.json();
     const result = JSON.parse(data.response); // Ollama returns string in response
     
-    console.log(`[SentriX Server] Classified: ${result.severity} | Message: ${text.substring(0, 30)}...`);
+    console.log(`[AegisAI Server] Classified: ${result.severity} | Message: ${text.substring(0, 30)}...`);
     res.status(200).json(result);
 
   } catch (error) {
-    console.error("[SentriX Server Error]:", error.message);
+    console.error("[AegisAI Server Error]:", error.message);
     res.status(503).json({ 
       severity: "SAFE", 
       reason: "Analysis service currently unavailable." 
@@ -63,6 +63,6 @@ Message: "${text}"`;
 });
 
 app.listen(PORT, () => {
-  console.log(`[SentriX Engine] Live on http://localhost:${PORT}`);
-  console.log(`[SentriX Engine] Using Local Model: ${OLLAMA_MODEL}`);
+  console.log(`[AegisAI Engine] Live on http://localhost:${PORT}`);
+  console.log(`[AegisAI Engine] Using Local Model: ${OLLAMA_MODEL}`);
 });

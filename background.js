@@ -1,5 +1,5 @@
 /**
- * SentriX Intelligence Background Worker v2.1
+ * AegisAI Intelligence Background Worker v2.1
  * Uses chrome.tabs.sendMessage to push results back to content script.
  */
 
@@ -38,7 +38,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     if (!text) return false;
     if (isRateLimited()) {
-      console.warn('[SentriX] Rate limit reached.');
+      console.warn('[AegisAI] Rate limit reached.');
       return false;
     }
 
@@ -59,7 +59,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         const severity = ['SAFE', 'MILD', 'SEVERE'].includes(data.severity)
           ? data.severity : 'SAFE';
 
-        console.log(`[SentriX] ${severity} | ${data.reason}`);
+        console.log(`[AegisAI] ${severity} | ${data.reason}`);
 
         // ── Push result to content script ──────────
         chrome.tabs.sendMessage(sender.tab.id, {
@@ -77,14 +77,14 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           chrome.notifications.create({
             type: 'basic',
             iconUrl: 'icons/icon128.png',
-            title: '⚠️ SentriX — Threat Detected',
+            title: '⚠️ AegisAI — Threat Detected',
             message: `Severe: "${text.substring(0, 60)}"`,
             priority: 2,
           });
         }
 
       } catch (err) {
-        console.warn('[SentriX] Analysis failed:', err.message);
+        console.warn('[AegisAI] Analysis failed:', err.message);
       }
     })();
 
@@ -94,5 +94,5 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 chrome.runtime.onInstalled.addListener(() => {
   chrome.storage.sync.set({ isEnabled: true, mildCount: 0, severeCount: 0 });
-  console.log('[SentriX] Intelligence Worker v2.1 installed.');
+  console.log('[AegisAI] Intelligence Worker v2.1 installed.');
 });

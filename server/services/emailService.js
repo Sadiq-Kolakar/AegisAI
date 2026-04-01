@@ -1,5 +1,5 @@
 /**
- * SentriX Email Alert Service.
+ * AegisAI Email Alert Service.
  * Uses Nodemailer to send severity alerts to a configured email address.
  */
 
@@ -33,12 +33,12 @@ const sendAlertEmail = async (text, severity, recipientEmail = null) => {
   const timestamp = new Date().toLocaleString();
   
   const mailOptions = {
-    from: `"SentriX Security Alert" <${process.env.EMAIL_USER}>`,
+    from: `"AegisAI Security Alert" <${process.env.EMAIL_USER}>`,
     to: destination,
-    subject: `⚠️ SentriX Alert: ${severity} MESSAGE DETECTED`,
+    subject: `⚠️ AegisAI Alert: ${severity} MESSAGE DETECTED`,
     html: `
       <div style="font-family: Arial, sans-serif; border: 1px solid #ddd; padding: 20px; border-radius: 8px;">
-        <h2 style="color: #e74c3c;">SentriX Security Alert</h2>
+        <h2 style="color: #e74c3c;">AegisAI Security Alert</h2>
         <p>A message with <strong>${severity}</strong> severity has been detected on WhatsApp Web.</p>
         <hr />
         <p><strong>Message Content:</strong></p>
@@ -48,7 +48,7 @@ const sendAlertEmail = async (text, severity, recipientEmail = null) => {
         <p><strong>Timestamp:</strong> ${timestamp}</p>
         <hr />
         <footer style="font-size: 12px; color: #777;">
-          Sent by SentriX Analysis Engine.
+          Sent by AegisAI Analysis Engine.
         </footer>
       </div>
     `,

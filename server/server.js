@@ -1,6 +1,6 @@
 /**
  * =============================================================
- * SentriX | AI Cyberbullying Detection Backend
+ * AegisAI | AI Cyberbullying Detection Backend
  * =============================================================
  * Stack  : Node.js + Express + Ollama (Llama 3 - Local)
  * Port   : 5000
@@ -137,7 +137,7 @@ const classifyWithOllama = async (text) => {
  * Confirms the server is alive without calling Ollama.
  */
 app.get('/health', (req, res) => {
-  res.json({ status: 'ok', model: OLLAMA_MODEL, engine: 'SentriX Analysis Engine' });
+  res.json({ status: 'ok', model: OLLAMA_MODEL, engine: 'AegisAI Analysis Engine' });
 });
 
 /**
@@ -150,7 +150,7 @@ app.post('/analyze', async (req, res) => {
 
   // ── Validate Input ──────────────────────────
   if (!text || typeof text !== 'string' || text.trim().length === 0) {
-    console.warn('[SentriX] Request rejected: empty or missing text field.');
+    console.warn('[AegisAI] Request rejected: empty or missing text field.');
     return res.status(400).json({
       error: 'Validation failed.',
       detail: 'The "text" field is required and must be a non-empty string.',
@@ -158,18 +158,18 @@ app.post('/analyze', async (req, res) => {
   }
 
   const truncatedLog = text.length > 50 ? `${text.substring(0, 50)}...` : text;
-  console.log(`[SentriX] Analyzing: "${truncatedLog}"`);
+  console.log(`[AegisAI] Analyzing: "${truncatedLog}"`);
 
   // ── Classify ────────────────────────────────
   try {
     const result = await classifyWithOllama(text.trim());
-    console.log(`[SentriX] Result: ${result.severity} | Reason: ${result.reason}`);
+    console.log(`[AegisAI] Result: ${result.severity} | Reason: ${result.reason}`);
     return res.status(200).json(result);
 
   } catch (err) {
     // ── Ollama Connection Failure ─────────────
     if (err.message.includes('fetch failed') || err.message.includes('ECONNREFUSED')) {
-      console.error('[SentriX] Ollama is unreachable. Is it running on port 11434?');
+      console.error('[AegisAI] Ollama is unreachable. Is it running on port 11434?');
       return res.status(503).json({
         error: 'Local AI Engine offline.',
         detail: 'Ollama is not reachable. Run: ollama serve',
@@ -178,7 +178,7 @@ app.post('/analyze', async (req, res) => {
 
     // ── JSON Parse Error ──────────────────────
     if (err.message.startsWith('Failed to parse')) {
-      console.error('[SentriX] JSON parse error from AI:', err.message);
+      console.error('[AegisAI] JSON parse error from AI:', err.message);
       return res.status(422).json({
         error: 'AI response parsing failed.',
         detail: err.message,
@@ -186,7 +186,7 @@ app.post('/analyze', async (req, res) => {
     }
 
     // ── Unexpected Error ──────────────────────
-    console.error('[SentriX] Unexpected Error:', err.message);
+    console.error('[AegisAI] Unexpected Error:', err.message);
     return res.status(500).json({
       error: 'Internal server error.',
       detail: err.message,
@@ -200,7 +200,7 @@ app.post('/analyze', async (req, res) => {
 app.listen(PORT, () => {
   console.log('');
   console.log('╔══════════════════════════════════════╗');
-  console.log('║      SentriX Intelligence Engine      ║');
+  console.log('║      AegisAI Intelligence Engine      ║');
   console.log('╠══════════════════════════════════════╣');
   console.log(`║  Server   : http://localhost:${PORT}    ║`);
   console.log(`║  Model    : ${OLLAMA_MODEL.padEnd(25)} ║`);

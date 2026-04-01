@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "SentriX — Cyberbullying Protection Agent",
+  "name": "AegisAI — Cyberbullying Protection Agent",
   "version": "2.0.0",
   "description": "Real-time AI-powered cyberbullying detection for WhatsApp Web using a local Llama 3 engine via Ollama.",
   "permissions": [
@@ -13,7 +13,7 @@
   ],
   "action": {
     "default_popup": "popup/index.html",
-    "default_title": "SentriX",
+    "default_title": "AegisAI",
     "default_icon": {
       "16": "icons/icon16.png",
       "48": "icons/icon48.png",

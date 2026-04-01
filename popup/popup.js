@@ -1,5 +1,5 @@
 /**
- * SentriX Popup Controller v2.0
+ * AegisAI Popup Controller v2.0
  * Handles live stats, toggle state, and server health-check.
  */
 

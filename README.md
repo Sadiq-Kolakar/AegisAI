@@ -74,7 +74,7 @@ Leave this terminal open. Ollama runs on port `11434`.
 
 Open a **new terminal**, navigate to the `server` folder:
 ```
-cd path\to\SentriX\server
+cd path\to\AegisAI\server
 npm install
 node server.js
 ```
@@ -82,7 +82,7 @@ node server.js
 You should see:
 ```
 ╔══════════════════════════════════════╗
-║      AegisAI Intelligence Engine     ║
+║      SentriX Intelligence Engine      ║
 ╠══════════════════════════════════════╣
 ║  Server   : http://localhost:5000    ║
 ║  Model    : mistral                  ║
@@ -101,7 +101,7 @@ You should see:
 3. Enable **Developer mode** (toggle in top-right)
 4. Click **Load unpacked**
 5. Select the **root `SentriX` folder** (the one containing `manifest.json`)
-6. The AegisAI 🛡️ shield icon appears in your toolbar
+6. The SentriX 🛡️ shield icon appears in your toolbar
 
 ---
 
