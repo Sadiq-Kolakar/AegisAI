@@ -1,4 +1,4 @@
-# SentriX 🛡️
+# Aegis-AI 🛡️
 ### AI-Powered Cyberbullying Detection for WhatsApp Web
 
 > **Real-time detection. Fully local. No API keys. No cloud.**  
