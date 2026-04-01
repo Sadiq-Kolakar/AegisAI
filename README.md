@@ -82,11 +82,11 @@ node server.js
 You should see:
 ```
 ╔══════════════════════════════════════╗
-║      SentriX Intelligence Engine      ║
+║      AegisAI Intelligence Engine     ║
 ╠══════════════════════════════════════╣
 ║  Server   : http://localhost:5000    ║
-║  Model    : mistral                   ║
-║  Ollama   : http://localhost:11434    ║
+║  Model    : mistral                  ║
+║  Ollama   : http://localhost:11434   ║
 ╚══════════════════════════════════════╝
 ```
 
@@ -101,7 +101,7 @@ You should see:
 3. Enable **Developer mode** (toggle in top-right)
 4. Click **Load unpacked**
 5. Select the **root `SentriX` folder** (the one containing `manifest.json`)
-6. The SentriX 🛡️ shield icon appears in your toolbar
+6. The AegisAI 🛡️ shield icon appears in your toolbar
 
 ---
 
@@ -135,14 +135,14 @@ You should see:
 🔥 Extension working on WhatsApp
 🚀 Observer attached to body
 🔥 MESSAGE DETECTED: You are useless
-[SentriX] Result → SEVERE
-[SentriX] 🎨 Badge shown: SEVERE
+[AegisAI] Result → SEVERE
+[AegisAI] 🎨 Badge shown: SEVERE
 ```
 
 **Server Terminal:**
 ```
-[SentriX] Analyzing: "You are useless..."
-[SentriX] Result: SEVERE | Reason: abusive, insulting
+[AegisAI] Analyzing: "You are useless..."
+[AegisAI] Result: SEVERE | Reason: abusive, insulting
 ```
 
 ---
@@ -155,7 +155,7 @@ You should see:
 | Server not starting | Run `npm install` inside the `server/` folder first |
 | Ollama error | Run `ollama serve` in a separate terminal |
 | Model not found | Run `ollama pull mistral` |
-| Extension not loading | Make sure you selected the **root** `SentriX/` folder, not `server/` |
+| Extension not loading | Make sure you selected the **root** `AegisAI/` folder, not `server/` |
 | WhatsApp not scanning | Hard refresh: `Ctrl + Shift + R` after loading extension |
 
 ---
@@ -163,7 +163,7 @@ You should see:
 ## 📂 Project Structure
 
 ```
-SentriX/
+AegisAI/
 ├── manifest.json          ← Chrome Extension config
 ├── background.js          ← Service Worker (bridges extension ↔ server)
 │
@@ -195,7 +195,7 @@ OLLAMA_MODEL=mistral
 
 ### 🤖 Available AI Models
 
-SentriX uses **Mistral** by default. You can swap it for any model supported by Ollama.
+AegisAI uses **Mistral** by default. You can swap it for any model supported by Ollama.
 
 | Model | Pull Command | Size | Speed | Best For |
 |---|---|---|---|---|
@@ -234,11 +234,11 @@ SentriX uses **Mistral** by default. You can swap it for any model supported by 
 ollama serve
 
 # Terminal 2 — Backend
-cd SentriX/server
+cd AegisAI/server
 node server.js
 
 # Chrome
-chrome://extensions/ → Load unpacked → select SentriX/ folder
+chrome://extensions/ → Load unpacked → select AegisAI/ folder
 # Then go to web.whatsapp.com
 ```
 
